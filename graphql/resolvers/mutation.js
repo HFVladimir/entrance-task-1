@@ -53,18 +53,38 @@ module.exports = {
             });
   },
 
+  updateEventExtended(root, { id, input, usersIds, roomId }, context) {
+    return models.Event.findById(id)
+            .then(event => {
+              event.setRoom(roomId);
+              event.update(input);
+              return event.setUsers(usersIds)
+                    .then(() => event);
+            });
+  },
+
+
   removeUserFromEvent (root, { id, userId }, context) {
     return models.Event.findById(id)
             .then(event => {
-              event.removeUser(userId);
-              return event;
+              return event.removeUser(userId)
+                     .then(() => event);
+            });
+  },
+
+  addUserToEvent (root, { id, userId }, context) {
+    return models.Event.findById(id)
+            .then(event => {
+              return event.addUser(userId)
+                     .then(() => event);
             });
   },
 
   changeEventRoom (root, { id, roomId }, context) {
     return models.Event.findById(id)
             .then(event => {
-              event.setRoom(roomId);
+              return event.setRoom(roomId)
+                     .then(() => event);
             });
   },
 
