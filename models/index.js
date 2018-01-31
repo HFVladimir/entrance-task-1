@@ -7,7 +7,6 @@ const Op = Sequelize.Op;
 const sequelize = new Sequelize(null, null, null, {
   dialect: 'sqlite',
   storage: 'db.sqlite3',
-  //storage: 'test.sqlite',
 
   operatorsAliases: { $and: Op.and },
 
